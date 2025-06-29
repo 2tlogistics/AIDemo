@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Innovation - Agentes Virtuales</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            margin: 0;
+            padding: 10px;
+        }
+        
+        .ad-container {
+            background: white;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: #000;
+            margin: 0 auto 15px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .logo-hexagon {
+            width: 70px;
+            height: 70px;
+            position: relative;
+        }
+        
+        .hex-layer {
+            position: absolute;
+            border: 3px solid white;
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .hex-layer:nth-child(1) { transform: scale(1); }
+        .hex-layer:nth-child(2) { transform: scale(0.8); }
+        .hex-layer:nth-child(3) { transform: scale(0.6); }
+        .hex-layer:nth-child(4) { transform: scale(0.4); }
+        
+        .hex-lines {
+            position: absolute;
+            top: 10px;
+            right: -10px;
+            width: 20px;
+            height: 60px;
+        }
+        
+        .line {
+            width: 3px;
+            background: white;
+            position: absolute;
+            right: 0;
+        }
+        
+        .line:nth-child(1) { height: 60px; top: 0; }
+        .line:nth-child(2) { height: 45px; top: 5px; right: 8px; }
+        .line:nth-child(3) { height: 30px; top: 10px; right: 16px; }
+        
+        .company-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .tagline {
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .main-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .main-title h1 {
+            font-size: 30px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        
+        .main-title p {
+            font-size: 16px;
+            color: #555;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        
+        .applications {
+            margin-bottom: 30px;
+        }
+        
+        .applications h2 {
+            font-size: 20px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .app-item {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #1e3a8a;
+            transition: transform 0.3s ease;
+        }
+        
+        .app-item:hover {
+            transform: translateY(-2px);
+        }
+        
+        .app-item h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .app-item p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        .benefits {
+            margin-bottom: 30px;
+        }
+        
+        .benefits h2 {
+            font-size: 20px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            padding: 12px;
+            background: rgba(30, 58, 138, 0.05);
+            border-radius: 10px;
+        }
+        
+        .benefit-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .benefit-text {
+            flex: 1;
+        }
+        
+        .benefit-text h3 {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .benefit-text p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.3;
+        }
+        
+        .contact {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .contact h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .contact p {
+            font-size: 14px;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        
+        .decorative-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(30, 58, 138, 0.1), rgba(59, 130, 246, 0.1));
+        }
+        
+        .circle-1 {
+            width: 200px;
+            height: 200px;
+            top: -100px;
+            right: -100px;
+        }
+        
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: -75px;
+            left: -75px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <div class="decorative-elements">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+        </div>
+        
+        <div class="header">
+            <div class="logo">
+                <div class="logo-hexagon">
+                    <div class="hex-layer"></div>
+                    <div class="hex-layer"></div>
+                    <div class="hex-layer"></div>
+                    <div class="hex-layer"></div>
+                </div>
+                <div class="hex-lines">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="company-name">Digital Innovation</div>
+            <div class="tagline">Digital Marketing & Business Services</div>
+        </div>
+        
+        <div class="main-title">
+            <h1>AGENTES VIRTUALES<br>INTELIGENTES</h1>
+            <p>Revoluciona tu negocio con asistentes virtuales personalizados para cualquier aplicación</p>
+        </div>
+        
+        <div class="applications">
+            <h2>Aplicaciones Versátiles</h2>
+            <div class="app-grid">
+                <div class="app-item">
+                    <h3>🛒 E-commerce</h3>
+                    <p>Asistentes de ventas 24/7 que guían a tus clientes desde la consulta hasta la compra</p>
+                </div>
+                <div class="app-item">
+                    <h3>🏥 Salud & Bienestar</h3>
+                    <p>Agentes especializados en citas médicas, consultas y seguimiento de pacientes</p>
+                </div>
+                <div class="app-item">
+                    <h3>🏦 Servicios Financieros</h3>
+                    <p>Consultores virtuales para banca, seguros y asesoramiento financiero</p>
+                </div>
+                <div class="app-item">
+                    <h3>📚 Educación</h3>
+                    <p>Tutores virtuales personalizados para cursos online y capacitación empresarial</p>
+                </div>
+                <div class="app-item">
+                    <h3>🏨 Hospitalidad</h3>
+                    <p>Concierges virtuales para hoteles, restaurantes y servicios turísticos</p>
+                </div>
+                <div class="app-item">
+                    <h3>🔧 Soporte Técnico</h3>
+                    <p>Agentes especializados en resolución de problemas y asistencia técnica</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="benefits">
+            <h2>Beneficios Transformadores</h2>
+            <div class="benefit-item">
+                <div class="benefit-icon">⚡</div>
+                <div class="benefit-text">
+                    <h3>Disponibilidad 24/7</h3>
+                    <p>Tus clientes reciben atención inmediata sin importar la hora o día</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">💰</div>
+                <div class="benefit-text">
+                    <h3>Reducción de Costos</h3>
+                    <p>Automatiza hasta el 80% de consultas repetitivas, liberando recursos humanos</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📈</div>
+                <div class="benefit-text">
+                    <h3>Escalabilidad Infinita</h3>
+                    <p>Atiende miles de clientes simultáneamente sin perder calidad en el servicio</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">🎯</div>
+                <div class="benefit-text">
+                    <h3>Personalización Total</h3>
+                    <p>Cada agente se adapta perfectamente a tu marca, tono y procesos específicos</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <div class="benefit-icon">📊</div>
+                <div class="benefit-text">
+                    <h3>Análisis Inteligente</h3>
+                    <p>Obtén insights valiosos sobre comportamiento y necesidades de tus clientes</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <h2>¡Transforma tu Negocio Hoy!</h2>
+            <p>Descubre cómo los agentes virtuales pueden revolucionar tu empresa</p>
+            <div class="contact-info">
+                info@digitalinnovation.agency
+            </div>
+        </div>
+    </div>
+</body>
+</html>
